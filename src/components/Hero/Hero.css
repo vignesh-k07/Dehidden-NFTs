@@ -1,0 +1,75 @@
+.container {
+    height: 100%;
+    background-color: #0d1116;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  
+  .header-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 30px;
+  }
+  
+  .header {
+    margin: 0;
+    font-size: 50px;
+    font-weight: bold;
+  }
+  
+  .sub-text {
+    font-size: 25px;
+    color: #768CF9;
+  }
+  .sub-text2 {
+    font-size: 20px;
+    color: #A85CF9;
+  }
+
+  .nft {
+      width: 400px;
+      height: 400px;
+      border-radius: 15px;
+      margin-bottom: 20px;
+  }
+
+  .gradient-text {
+    background: -webkit-linear-gradient(left, #FF45D4 30%, #FF2B3F 60%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .cta-button {
+    height: 45px;
+    border: 0;
+    width: auto;
+    padding-left: 40px;
+    padding-right: 40px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+  }
+  
+  .mint-button {
+    background: -webkit-linear-gradient(left, #60c657, #35aee2);
+    background-size: 200% 200%;
+    animation: gradient-animation 4s ease infinite;
+    margin-bottom: 15px;
+  }
+  
+  .view-mint-button {
+    text-decoration: none;
+    width: 40%;
+    padding-top: 30px;
+    text-align: center;
+    background: -webkit-linear-gradient(left, #2081E2, #35aee2);
+    background-size: 200% 200%;
+    animation: gradient-animation 4s ease infinite;
+  }
