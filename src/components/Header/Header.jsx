@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FaUserAlt } from "react-icons/fa"
+
 import logo from "../../assets/logo.jpg";
 import "./Header.css";
 
-const Header = ({currentAccount, connectWallet}) => {
 
-  const shortenAddress = (address) => (`${address.slice(0, 5)}...${address.slice(address.length - 4)}`)
-  
+
+const Header = ( {currentAccount, connectWallet, shortenAddress } ) => {
+
   return (
     <div className="header">
       <div className="logoContainer">

@@ -5,25 +5,34 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
+import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
 
 contract DehiddenCollections is ERC721, ERC721Enumerable, ERC721URIStorage {
     using Counters for Counters.Counter;
+    bytes32 public root;
 
     Counters.Counter private _tokenIdCounter;
     uint256 MAX_SUPPLY = 3000;
 
-    constructor() ERC721("Dehidden Collections", "DHN") {}
+    constructor(bytes32 _root) ERC721("Dehidden Collections", "DHN") {
+      root = _root;
+    }
 
-    function makeDehiddenNFT() public {
+    function makeDehiddenNFT(bytes32[] memory proof) public {
         uint256 tokenId = _tokenIdCounter.current();
+        require(isValid(proof, keccak256(abi.encodePacked(msg.sender))), "Not a part of Whitelist");
         require(tokenId <= MAX_SUPPLY, "Sorry! All NFts have been minted");
-        require(balanceOf(msg.sender) == 0, 'Each address may only own one NFT');
+        require(balanceOf(msg.sender) == 0, "Each address may only own one NFT");
         _tokenIdCounter.increment();
         _safeMint(msg.sender, tokenId);
         _setTokenURI(
             tokenId,
             "ipfs://bafkreignppjwv56jciz72nozbudbejc6myeji742ldriut563pb6yd2pri"
         );
+    }
+
+    function isValid(bytes32[] memory proof, bytes32 leaf) public view returns (bool) {
+      return MerkleProof.verify(proof, root, leaf);
     }
 
     // The following functions are overrides required by Solidity.

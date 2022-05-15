@@ -5,9 +5,31 @@
     <link rel="icon" type="image/svg+xml" href="/src/assets/logo.jpg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dehidden NFTs</title>
+    <script src="https://cdn.jsdelivr.net/npm/merkletreejs@latest/merkletree.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/keccak256@latest/keccak256.js"></script>
   </head>
   <body>
     <div id="root"></div>
+    <script type="text/javascript">
+      const addresses = [
+        "0x0659347bC2E6f3896F27dfE0fE22FBDFbe590812",
+        "0xc1D0479C7D7800B998a2cc8A1d259024e0c8948b",
+        "0x87fFcCc921aFE16340c28f1b1c27aAd74eA9A874",
+        "0x440819162fb095CBCE2E5716CC59008C62DD5cE6",
+      ];
+
+      const leaves = addresses.map((x) => keccak256(x));
+      const tree = new MerkleTree(leaves, keccak256, { sortPairs: true });
+      const buf2hex = (x) => "0x" + x.toString("hex");
+      console.log(buf2hex(tree.getRoot()));
+
+       const isWhitelisted = (currentAccount) => {
+        const leaf = keccak256(currentAccount);
+        const proof = tree.getProof(leaf).map((x) => buf2hex(x.data));
+        console.log(proof);
+        return proof;
+      };
+    </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
